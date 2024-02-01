@@ -42,7 +42,8 @@ const ClientDetail = () => {
 
         return (
             <Box className="ClientDetail" sx={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%' }}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', maxWidth: '100%', marginY: 2 }}>
+                <Box>
+                <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', maxWidth: '100%', }}>
                     <Typography variant="h4"> Detalle de Cliente</Typography>
                     <Avatar sx={{ width: '15vh', height: '15vh', margin: 2 }} src={client?.logo} />
                     <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'start', gap: 2 }}>
@@ -68,6 +69,7 @@ const ClientDetail = () => {
                         </TableContainer>
                     </Box>
                 </Card>
+                </Box>
                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, margin: 2, justifyContent: 'space-around' }}>
                     <Box>
                         <Typography variant="h4"> Cursos</Typography>
