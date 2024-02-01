@@ -16,9 +16,7 @@ const Clients = () => {
 
   useEffect(() => {
     getClientsList().then((response) => {
-      //mostrar las empresas diferentes a company
-      const clientsToShow = response.filter((client) => client.id !== company.id);
-      setClients(clientsToShow);
+      setClients(response);
     });
   }, [company.id]);
 
