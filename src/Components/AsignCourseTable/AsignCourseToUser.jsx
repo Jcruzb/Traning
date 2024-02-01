@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Switch from '@mui/material/Switch';
 import Skeleton from '@mui/material/Skeleton';
 import { useState } from 'react';
+import TextFormatToShowInCourseContent from '../TextFormat/TextFormatToShowInCourseContent';
 
 const label = { inputProps: { 'aria-label': 'Color switch demo' } };
 
@@ -90,9 +91,16 @@ const AsignCourseToUser = ({
                                 )}
                             </StyledTableCell>
                             {properties.map((property, i) => (
+                                property === "description" ?(
+                                    <StyledTableCell key={i} align="center">
+                                    <TextFormatToShowInCourseContent htmlContent={row[property]} />
+                                </StyledTableCell>
+                                ):(
+                                 
                                 <StyledTableCell key={i} align="center">
                                     {row[property]}
                                 </StyledTableCell>
+                                )
                             ))}
                         </StyledTableRow>
                     ))}

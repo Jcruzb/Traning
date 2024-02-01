@@ -5,6 +5,7 @@ import { Box, Divider, Typography } from "@mui/material";
 import ViewOfContent from "./ViewOfContent";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import { updateDedication } from "../../Services/UsersService";
+import TextFormatToShowInCourseContent from "../../Components/TextFormat/TextFormatToShowInCourseContent";
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -62,9 +63,9 @@ const CourseDetail = () => {
     if (!course) return <h1>El curso no existe</h1>;
     else {
         return (
-            <Box className="container" sx={{ marginTop: 4 }}>
-                <Typography variant="h4" sx={{ marginBottom: 3 }}>{course.name}</Typography>
-                <Typography variant="body1" sx={{ marginBottom: 3 }}>{course.description}</Typography>
+            <Box className="container" sx={{ margin: 4 }}>
+                <Typography variant="h4" sx={{ marginBottom: 1 }}>{course.name}</Typography>
+                <TextFormatToShowInCourseContent htmlContent={course.description} />
                 <Divider orientation='horizontal' flexItem />
                 <ViewOfContent content={course.content} test={course.tests} courseId={id} />
             </Box>

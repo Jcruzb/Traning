@@ -8,6 +8,7 @@ import { updateProgress, updateTest } from '../../Services/UsersService';
 import { useAuthContext } from '../../Contexts/AuthContext';
 import CorrectAnswers from '../../Components/CourseTest/CorrectAnswers';
 import ErrorBoundary from '../../Components/ErrorBoundary/ErrorBoundary';
+import TextFormatToShowInCard from '../../Components/TextFormat/TextFormatToShowInCard';
 
 
 const ViewOfContent = ({ content, test, courseId }) => {
@@ -190,7 +191,7 @@ const ViewOfContent = ({ content, test, courseId }) => {
                         <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginY: 2 }}>
                             <Typography>{contentArray[page - 1].title}</Typography>
                             <img src={contentArray[page - 1].image} alt={contentArray[page - 1].name} />
-                            <Typography>{contentArray[page - 1].description}</Typography>
+                            <TextFormatToShowInCard htmlContent={contentArray[page - 1].description} />
                         </Card>
                     )}
                 </Box>

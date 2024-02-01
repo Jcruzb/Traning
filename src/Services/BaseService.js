@@ -6,7 +6,7 @@ import { getAccessToken, logout } from '../Stores/AccessTokenStore';
 const createHttp = (useAccessToken = false) => {
   console.log(import.meta.env.VITE_API_URL)
   const http = axios.create({
-    baseURL:"https://traning-back-dev-bqtp.1.sg-1.fl0.io"
+    baseURL:import.meta.env.VITE_API_URL || "http://localhost:3000",
   });
 
 
