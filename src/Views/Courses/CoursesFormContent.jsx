@@ -114,7 +114,8 @@ const CoursesFormContent = () => {
                 .then((res) => {
                     console.log(res)
                     setCourse(res)
-                    navigate(`/course/content/${id}`);
+                    //reload
+                    window.location.reload();
                 })
                 .catch((error) => {
                     console.log(error);
