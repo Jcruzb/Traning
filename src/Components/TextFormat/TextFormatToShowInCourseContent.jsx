@@ -8,7 +8,7 @@ const TextFormatToShowInCourseContent = ({ htmlContent }) => {
         <div
         dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
         style={{
-            display: '-webkit-box',
+
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
             WebkitLineClamp: 1,

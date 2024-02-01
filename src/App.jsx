@@ -20,6 +20,7 @@ import MyCourses from './Views/Courses/MyCourses'
 import ClientDetail from './Views/Clients/ClientDetail'
 import UserDetail from './Views/Users/UserDetail'
 import Exam from './Views/Courses/Exam'
+import TestForm from './Views/Evaluations/TestForm'
 
 
 
@@ -61,6 +62,9 @@ function App() {
             <Route path="/course/asign/companies/:id" element={<CoursesToCompanies />} />
             <Route path="/mycourses/:id" element={<MyCourses />} />
             <Route path="/course/exam/:id" element={<Exam />} />
+
+            {/* Test */}
+            <Route path="/course/:id/testForm" element={<TestForm />} />
 
 
 

@@ -2,7 +2,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useRef } from "react";
 
 
-const TextFormat = ({ name, initialValue, handleChange  }) => {
+const TextFormat = ({ name, initialValue, handleChange, onBlur  }) => {
     const editorRef = useRef(null);
 
     const handleEditorChange = () => {
@@ -10,6 +10,11 @@ const TextFormat = ({ name, initialValue, handleChange  }) => {
             handleChange(editorRef.current.getContent(), name);
         }
     };
+
+
+
+
+
     return (
         <>
             <Editor
@@ -17,6 +22,8 @@ const TextFormat = ({ name, initialValue, handleChange  }) => {
                 onInit={(e, editor) => editorRef.current = editor}
                 initialValue={initialValue}
                 onChange={handleEditorChange}
+                onBlur={onBlur}
+                
                 init={{
                     height: 500,
                     menubar: false,

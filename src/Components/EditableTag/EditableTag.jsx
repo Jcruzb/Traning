@@ -1,14 +1,12 @@
-import { Box, Button} from '@mui/material';
+import { useState } from 'react';
+import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import TextFormat from '../TextFormat/TextFormat';
+import TextFormatToShowInCourseContent from '../TextFormat/TextFormatToShowInCourseContent';
 
-
-
-
-
-const EditableTag = ({ typeOfTag, initialValue, onUpdate, name, index, editImage }) => {
+const EditableTag = ({ typeOfTag, initialValue, onUpdate, name, index, editImage, onBlur }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
 
@@ -16,23 +14,30 @@ const EditableTag = ({ typeOfTag, initialValue, onUpdate, name, index, editImage
     setIsEditing(true);
   };
 
-  const handleBlur = (e) => {
+  const handleBlur = () => {
     setIsEditing(false);
-    onUpdate(e, index);
+    if (onBlur) {
+      onBlur({ target: { value, name } });
+    }
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
   };
 
+  const handleTextFormatChange = (value) => {
+    setValue(value);
+    if (onUpdate) {
+      onUpdate({ target: { value, name } }, index);
+    }
+  };
 
   const handleImageChange = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const files = e.target.files;
     editImage(files, index);
     setIsEditing(false);
   };
-
 
   let inputComponent;
 
@@ -46,6 +51,18 @@ const EditableTag = ({ typeOfTag, initialValue, onUpdate, name, index, editImage
             onChange={handleChange}
             onBlur={handleBlur}
             autoFocus
+          />
+        </form>
+      );
+      break;
+    case "description":
+      inputComponent = (
+        <form action='submit'>
+          <TextFormat
+            name={name}
+            initialValue={value}
+            handleChange={handleTextFormatChange}
+            onBlur={handleBlur}
           />
         </form>
       );
@@ -87,24 +104,27 @@ const EditableTag = ({ typeOfTag, initialValue, onUpdate, name, index, editImage
   }
 
   return (
-    <Box onDoubleClick={handleDoubleClick} >
+    <Box onDoubleClick={handleDoubleClick}>
       {isEditing ? inputComponent : (
         name === 'image' || name === 'avatar'
-          ?
-          <div style={{ maxWidth: '80%',  margin: '0 auto', textAlign: 'center' }}>
-            <img
-              src={value}
-              alt={value}
-              style={{ maxWidth: '100%',  height: 'auto', border: '1px solid black' }}
-            />
-          </div>
-          :
-          <div style={{ maxWidth: '80%', minWidth:'70vh', margin: '0 auto', textAlign: 'center' }}>
-          <Typography variant={typeOfTag} onDoubleClick={handleDoubleClick}>
-            {value}
-          </Typography>
-          </div>
-          
+          ? (
+            value?.includes('http')
+              ? <div style={{ maxWidth: '80%', margin: '0 auto', textAlign: 'center' }}>
+                <img
+                  src={value}
+                  alt={value}
+                  style={{ maxWidth: '100%', height: 'auto', border: '1px solid black' }}
+                />
+              </div>
+              : <Typography><CloudUploadIcon /></Typography>
+          )
+          : name === 'description' ?
+            <TextFormatToShowInCourseContent htmlContent={value} />
+            : <div style={{ maxWidth: '80%', minWidth: '70vh', margin: '0 auto', textAlign: 'center' }}>
+              <Typography variant={typeOfTag} onDoubleClick={handleDoubleClick}>
+                {value}
+              </Typography>
+            </div>
       )}
     </Box>
   );

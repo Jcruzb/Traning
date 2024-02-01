@@ -5,7 +5,7 @@ import { Box, Button, Card, Divider } from "@mui/material";
 import CourseContent from "./CourseContent";
 import CourseHeader from "../../Components/CourseHeader/CourseHeader";
 import EditableTag from "../../Components/EditableTag/EditableTag";
-import TextFormatToShowInCourseContent from "../../Components/TextFormat/TextFormatToShowInCourseContent";
+
 
 
 const CoursesFormContent = () => {
@@ -23,30 +23,31 @@ const CoursesFormContent = () => {
     const [contentList, setContentList] = useState(course.content ? course.content : [])
 
 
+
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const data = await getCourseDetail(id);
-            setCourse(data);
-          } catch (error) {
-            console.log(error);
-          }
+            try {
+                const data = await getCourseDetail(id);
+                setCourse(data);
+            } catch (error) {
+                console.log(error);
+            }
         };
-      
-        fetchData(); 
-      
-      }, [id]);
-      
+
+        fetchData();
+
+    }, [id]);
 
 
 
-      const addContent = async (e) => {
+
+    const addContent = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", contentList.title);
         formData.append("description", contentList.description);
         formData.append("image", contentList.image instanceof File ? contentList.image : undefined);
-    
+
         try {
             const data = await updateCourseContent(id, formData, { headers: { "Content-Type": "multipart/form-data" } });
             setCourse((prevCourse) => ({ ...prevCourse, content: data.content || [] }));
@@ -90,8 +91,9 @@ const CoursesFormContent = () => {
             });
     }
 
+
     const editImage = (files, index) => {
-          
+
         const newContent = [...course.content];
         if (newContent[index]) {
             const name = "image";
@@ -106,13 +108,13 @@ const CoursesFormContent = () => {
 
             const formData = new FormData();
             formData.append("image", files[0] instanceof File ? files[0] : undefined);
-            formData.append("contentId", contentId);           
+            formData.append("contentId", contentId);
 
-            updateCourseImage(id, formData, { headers: { "Content-Type": "multipart/form-data" }})
+            updateCourseImage(id, formData, { headers: { "Content-Type": "multipart/form-data" } })
                 .then((res) => {
                     console.log(res)
                     setCourse(res)
-                    navigate(`/course/content/${id}`); 
+                    navigate(`/course/content/${id}`);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -160,11 +162,11 @@ const CoursesFormContent = () => {
                 </Box >
                 <Divider orientation='horizontal' flexItem />
                 <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
-                    
-                        {course.content?.map((content, index) => (
-                            <Card key={content._id} sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center', margin: 2, padding: 1, minWidth:'80vh' }}>
-                           
-                                <Box>
+
+                    {course.content?.map((content, index) => (
+                        <Card key={content._id} sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center', margin: 2, padding: 1, minWidth: '80vh' }}>
+
+                            <Box>
                                 <EditableTag
                                     index={index}
                                     name="title"
@@ -173,15 +175,19 @@ const CoursesFormContent = () => {
                                     initialValue={content.title ? content.title : ""}
                                     onUpdate={editTag}
                                 />
-                                </Box>
-                                <Box>
-                                    <TextFormatToShowInCourseContent 
-                                        htmlContent={content.description ? content.description : ""}
-                                        typeOfTag={"body2"}
-                                    />
+                            </Box>
+                            <Box>
+                                <EditableTag
+                                    index={index}
+                                    name="description"
+                                    sx={{ marginBottom: 1 }}
+                                    typeOfTag={"p"}
+                                    initialValue={content.description ? content.description : ""}
+                                    handleChange={editTag}
+                                />
 
-                                </Box>
-                                <Box>
+                            </Box>
+                            <Box>
                                 <EditableTag
                                     index={index}
                                     name="image"
@@ -190,16 +196,15 @@ const CoursesFormContent = () => {
                                     initialValue={content.image ? content.image : ""}
                                     editImage={(e) => editImage(e, index)}
                                 />
-                                </Box>
+                            </Box>
 
-                                <Box sx={{ display: 'flex', flexDirection: "row", justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Button variant="contained" color="primary" sx={{ margin: 1 }}>Editar Sección</Button>
-                                <Button variant="contained" color="secondary" sx={{ marginY: 2 }} onClick={(e) => hanndleDeleteContent(e, index)}>Eliminar contenido</Button>
-                                </Box>
-                 
-                            </Card>
-                        ))}
-                    
+                            <Box sx={{ display: 'flex', flexDirection: "row", justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Button variant="contained" color="primary" sx={{ marginY: 2 }} onClick={(e) => hanndleDeleteContent(e, index)}>Eliminar contenido</Button>
+                            </Box>
+
+                        </Card>
+                    ))}
+
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'space-between', alignItems: 'center' }}>
 
@@ -210,7 +215,11 @@ const CoursesFormContent = () => {
                                 onChange={handleAddContent}
                             />
                         </Box>
-                        <Button type="submit" onClick={(e) => addContent(e)} variant="contained" color="primary" sx={{ marginY: 2 }}>Agregar Sección</Button>
+                        <Card sx={{ display: 'flex', flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', marginTop:1 }}>
+                        <Button type="submit" onClick={(e) => addContent(e)} variant="contained" color="primary" sx={{ margin: 2 }}>Agregar Sección</Button>
+                        <Button onClick={() => navigate(`/course/${id}/testForm`)}>Evaluar la Sección</Button>
+
+                        </Card>
                     </form>
                 </Box>
             </Box>
