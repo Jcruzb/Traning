@@ -4,13 +4,15 @@ import axios from 'axios';
 import { getAccessToken, logout } from '../Stores/AccessTokenStore';
 
 const createHttp = (useAccessToken = false) => {
-  // const http = axios.create({
-  //   baseURL:"https://traning-back-dev-brjs.3.us-1.fl0.io"
-  // });
-
+  console.log(import.meta.env.VITE_API_URL)
   const http = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL:"https://traning-back-dev-bqtp.1.sg-1.fl0.io"
   });
+
+
+  // const http = axios.create({
+  //   baseURL:import.meta.env.VITE_API_URL || "http://localhost:3000",
+  // });
 
 
 
