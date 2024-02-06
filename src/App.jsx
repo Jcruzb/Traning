@@ -21,6 +21,7 @@ import ClientDetail from './Views/Clients/ClientDetail'
 import UserDetail from './Views/Users/UserDetail'
 import Exam from './Views/Courses/Exam'
 import TestForm from './Views/Evaluations/TestForm'
+import NotFoundPage from './Views/NotFound/NotFound'
 
 
 
@@ -47,6 +48,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<ProtectedRoute />}>
+          <Route path="*" element={<NotFoundPage />} />
             <Route path="/mycourses/:id" element={<MyCourses />} />
             {/* Clients */}
             <Route path="/clients" element={<Clients />} />
@@ -60,7 +62,6 @@ function App() {
             <Route path="/course/detail/:id" element={<CourseDetail />} />
             <Route path="/course/content/:id" element={<CoursesFormContent />} />
             <Route path="/course/asign/companies/:id" element={<CoursesToCompanies />} />
-            <Route path="/mycourses/:id" element={<MyCourses />} />
             <Route path="/course/exam/:id" element={<Exam />} />
 
             {/* Test */}
