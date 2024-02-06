@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider, createTheme  } from '@mui/material/styles'; 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
@@ -17,10 +17,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <CssBaseline />
     <AuthContextProvider>
       <CompanyContextProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-    </CompanyContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CompanyContextProvider>
     </AuthContextProvider>
   </ThemeProvider>
 
