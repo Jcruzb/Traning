@@ -22,6 +22,7 @@ function Navbar() {
   const navigate = useNavigate();
   
   const { user } = useAuthContext();
+  console.log(user)
   
   
   const settings = ['Profile', 'Logout'];
