@@ -28,6 +28,7 @@ export const AuthContextProvider = ({ children }) => {
         cb && cb();
       })
       .catch(err => {
+        console.log('no hay usuario')
         console.log(err);
         setIsAuthenticationFetched(true);
       });
