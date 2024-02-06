@@ -46,7 +46,7 @@ function App() {
 
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
-          {/* <Route path="/" element={<ProtectedRoute />}> */}
+          <Route path="/" element={<ProtectedRoute />}>
             <Route path="/mycourses/:id" element={<MyCourses />} />
             {/* Clients */}
             <Route path="/clients" element={<Clients />} />
@@ -72,7 +72,7 @@ function App() {
             <Route path="/users/profile/:id" element={<Profile />} />
             <Route path="/users/edit/:id" element={<UsersEditForm />} />
             <Route path="/users/detail/:id" element={<UserDetail />} />
-          {/* </Route> */}
+          </Route>
           <Route path="/login" element={<Login />} />
 
         </Routes >
