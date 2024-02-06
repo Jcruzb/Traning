@@ -5,14 +5,6 @@ import Navbar from "../Navbar/Navbar";
 
 const ProtectedRoute = () => {
   const { user } = useAuthContext();
-  const Page = () => {
-    return (
-      <>
-        <Outlet />
-      </>
-    );
-  }
-
   if (!user) {
     return <Navigate to="/login" />
   }
@@ -20,7 +12,7 @@ const ProtectedRoute = () => {
   return (
     <>
       <Navbar />
-      {Page()}
+      <Outlet />
     </>
   );
 }
