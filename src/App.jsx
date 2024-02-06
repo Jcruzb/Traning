@@ -49,7 +49,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute />}>
             <Route path="/mycourses/:id" element={<MyCourses />} />
             {/* Clients */}
-            <Route path="clients" element={<Clients />} />
+            <Route path="/clients" element={<Clients />} />
             <Route path="/clients/new" element={<ClientsForm />} />
             <Route path="/clients/detail/:id" element={<ClientDetail />} />
 
