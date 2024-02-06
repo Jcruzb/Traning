@@ -12,15 +12,15 @@ const ProtectedRoute = () => {
       </>
     );
   }
-  
+
   if (!user) {
     return <Navigate to="/login" />
   }
 
   return (
     <>
-    <Navbar />
-    {Page()}
+      <Navbar />
+      {Page()}
     </>
   );
 }

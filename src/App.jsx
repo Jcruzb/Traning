@@ -24,8 +24,6 @@ import TestForm from './Views/Evaluations/TestForm'
 import NotFoundPage from './Views/NotFound/NotFound'
 
 
-
-
 function App() {
   const { isAuthenticationFetched } = useAuthContext()
 
@@ -47,11 +45,11 @@ function App() {
       ) : (
 
         <Routes>
-          <Route path="/" element={<ProtectedRoute />}>
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<ProtectedRoute />}>
             <Route path="/mycourses/:id" element={<MyCourses />} />
             {/* Clients */}
-            <Route path="/clients" element={<Clients />} />
+            <Route path="clients" element={<Clients />} />
             <Route path="/clients/new" element={<ClientsForm />} />
             <Route path="/clients/detail/:id" element={<ClientDetail />} />
 

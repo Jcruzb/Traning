@@ -78,7 +78,7 @@ function Navbar() {
   }
 
   const handleRouteClick = (page) => {
-    navigate(`/${page.toLowerCase()}`);
+    navigate(`${page.toLowerCase()}`);
     console.log(page)
   }
   
