@@ -43,6 +43,9 @@ const CoursesFormContent = () => {
 
     const addContent = async (e) => {
         e.preventDefault();
+        if (contentList.title === "" || contentList.description === "" || contentList.image === "") {
+            return;
+        }
         const formData = new FormData();
         formData.append("title", contentList.title);
         formData.append("description", contentList.description);
@@ -55,6 +58,16 @@ const CoursesFormContent = () => {
             console.log(error);
         }
     }
+
+    const testForm = (e) => {
+        if(contentList.title !== "" || contentList.description !== "" || contentList.image !== "") {
+            navigate(`/course/${id}/testForm`)
+        }else{
+        addContent(e)
+        navigate(`/course/${id}/testForm`)
+        }
+    }
+
 
     const handleAddContent = (event) => {
         const { name, value, files } = event.target;
@@ -71,7 +84,7 @@ const CoursesFormContent = () => {
             });
     };
 
-    console.log(contentList)
+
 
     const editTag = (e, index) => {
 
@@ -218,7 +231,7 @@ const CoursesFormContent = () => {
                         </Box>
                         <Card sx={{ display: 'flex', flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', marginTop:1 }}>
                         <Button type="submit" onClick={(e) => addContent(e)} variant="contained" color="primary" sx={{ margin: 2 }}>Agregar Sección</Button>
-                        <Button onClick={() => navigate(`/course/${id}/testForm`)}>Evaluar la Sección</Button>
+                        <Button onClick={(e) => testForm(e)} color="primary" sx={{ margin: 2 }}>Evaluar la Sección</Button>
 
                         </Card>
                     </form>
