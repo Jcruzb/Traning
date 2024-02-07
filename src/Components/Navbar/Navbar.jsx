@@ -43,7 +43,6 @@ function Navbar() {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-    console.log(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -146,9 +145,10 @@ function Navbar() {
                   <Button
                     component={Link} // Usar Button como componente y pasar Link como la ubicación
                     to={handleRouteClick(page)}
+                    color="primary"
                     sx={{
                       my: 2,
-                      color: "white",
+                      
                       display: "block",
                       marginLeft: 2,
                       textDecoration: "none",
@@ -181,7 +181,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                component={Link} // Usar Button como componente y pasar Link como la ubicación
+                component={Link} 
                 href={method}
                 key={page}
                 to={handleRouteClick(page)}
