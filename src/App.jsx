@@ -24,6 +24,8 @@ import TestForm from './Views/Evaluations/TestForm'
 import NotFoundPage from './Views/NotFound/NotFound'
 
 
+
+
 function App() {
   const { isAuthenticationFetched } = useAuthContext()
 
@@ -44,43 +46,42 @@ function App() {
         <h1>...loading</h1>
       ) : (
 
-        <Routes>
-          <Route path="*" element={<NotFoundPage />} />
-          <Route path="/" element={<ProtectedRoute />}>
-            <Route path="/mycourses/:id" element={<MyCourses />} />
-            {/* Clients */}
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/clients/new" element={<ClientsForm />} />
-            <Route path="/clients/detail/:id" element={<ClientDetail />} />
+        <Routes> {/* Definir tus rutas dentro de Routes */}
 
+            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/" element={<ProtectedRoute />}>
+              <Route path="/mycourses/:id" element={<MyCourses />} />
+              {/* Clients */}
+              <Route path="/clients" element={<Clients />} />
+              <Route path="/clients/new" element={<ClientsForm />} />
+              <Route path="/clients/detail/:id" element={<ClientDetail />} />
 
-            {/* Courses */}
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/course/new" element={<CoursesForm />} />
-            <Route path="/course/detail/:id" element={<CourseDetail />} />
-            <Route path="/course/content/:id" element={<CoursesFormContent />} />
-            <Route path="/course/asign/companies/:id" element={<CoursesToCompanies />} />
-            <Route path="/course/exam/:id" element={<Exam />} />
+              {/* Courses */}
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/course/new" element={<CoursesForm />} />
+              <Route path="/course/detail/:id" element={<CourseDetail />} />
+              <Route path="/course/content/:id" element={<CoursesFormContent />} />
+              <Route path="/course/asign/companies/:id" element={<CoursesToCompanies />} />
+              <Route path="/course/exam/:id" element={<Exam />} />
 
-            {/* Test */}
-            <Route path="/course/:id/testForm" element={<TestForm />} />
+              {/* Test */}
+              <Route path="/course/:id/testForm" element={<TestForm />} />
 
+              <Route path="/users" element={<Users />} />
+              <Route path="/users/new" element={<UsersForm />} />
+              <Route path="/users/profile/:id" element={<Profile />} />
+              <Route path="/users/edit/:id" element={<UsersEditForm />} />
+              <Route path="/users/detail/:id" element={<UserDetail />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
 
+        </Routes>
 
-            <Route path="/users" element={<Users />} />
-            <Route path="/users/new" element={<UsersForm />} />
-            <Route path="/users/profile/:id" element={<Profile />} />
-            <Route path="/users/edit/:id" element={<UsersEditForm />} />
-            <Route path="/users/detail/:id" element={<UserDetail />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-
-        </Routes >
-      )
-      }
-    </ThemeProvider >
+      )}
+    </ThemeProvider>
   )
 }
+
 
 export default App;
 

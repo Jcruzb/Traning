@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { AuthContextProvider } from "./Contexts/AuthContext.jsx";
 import CompanyContextProvider from "./Contexts/CompanyContext.jsx";
+import { HashRouter } from 'react-router-dom';
 
 
 
@@ -17,9 +18,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <CssBaseline />
     <AuthContextProvider>
       <CompanyContextProvider>
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
       </CompanyContextProvider>
     </AuthContextProvider>
   </ThemeProvider>
