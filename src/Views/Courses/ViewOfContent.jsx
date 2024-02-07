@@ -8,7 +8,7 @@ import { updateProgress, updateTest } from '../../Services/UsersService';
 import { useAuthContext } from '../../Contexts/AuthContext';
 import CorrectAnswers from '../../Components/CourseTest/CorrectAnswers';
 import ErrorBoundary from '../../Components/ErrorBoundary/ErrorBoundary';
-import TextFormatToShowInCard from '../../Components/TextFormat/TextFormatToShowInCard';
+import TextFormatToShowInCourseContent from '../../Components/TextFormat/TextFormatToShowInCourseContent';
 
 
 const ViewOfContent = ({ content, test, courseId }) => {
@@ -190,8 +190,12 @@ const ViewOfContent = ({ content, test, courseId }) => {
                         )) : (
                         <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginY: 2 }}>
                             <Typography>{contentArray[page - 1].title}</Typography>
-                            <img src={contentArray[page - 1].image} alt={contentArray[page - 1].name} />
-                            <TextFormatToShowInCard htmlContent={contentArray[page - 1].description} />
+                            <Box sx={{height:'100vh', marginY: 2, display:'flex', justifyContent:'center'}}>
+                            {/* no distorcionar la imágen */}
+                                <img src={contentArray[page - 1].image} alt={contentArray[page - 1].title} style={{maxHeight:'45%', maxWidth:'45%'}} />
+                            
+                            <TextFormatToShowInCourseContent htmlContent={contentArray[page - 1].description} />
+                            </Box>
                         </Card>
                     )}
                 </Box>
