@@ -26,7 +26,7 @@ const CourseCard = ({ course, handleDeleteCourse, action, route }) => {
       </CardContent>
       <CardActions>
         <Button href={route}>{action}</Button>
-        <Button href={`/course/content/${course.id}`}>
+        <Button href={`/#/course/content/${course.id}`}>
           <EditIcon />
         </Button>
         <Button onClick={() => handleDeleteCourse(course.id)}>

@@ -52,7 +52,7 @@ const Courses = () => {
                         labelProp="name"
                         onSearch={handleSearch}
                     />
-                    <Button href="/course/new" variant="contained" color="primary" sx={{ marginY: 2 }}>Agregar</Button>
+                    <Button href="/#/course/new" variant="contained" color="primary" sx={{ marginY: 2 }}>Agregar</Button>
                 </Box>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     {
@@ -62,7 +62,7 @@ const Courses = () => {
                                     course = {course}
                                     handleDeleteCourse = {handleDeleteCourse}
                                     action = "Asignar"
-                                    route = {`/course/asign/companies/${course.id}`}
+                                    route = {`/#/course/asign/companies/${course.id}`}
                                 />
                             </Grid>
                         ))

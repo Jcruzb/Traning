@@ -59,7 +59,7 @@ const Users = () => {
                         labelProp="username"
                         onSearch={handleSearch}
                     />
-                    <Button href="/users/new" variant="contained" color="primary" sx={{ marginY: 2 }}>Agregar</Button>
+                    <Button href="/#/users/new" variant="contained" color="primary" sx={{ marginY: 2 }}>Agregar</Button>
                 </Box>
                 <Box sx={{ marginX: 10 }}>
                     <List

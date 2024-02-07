@@ -97,7 +97,7 @@ function Navbar() {
             variant="h6"
             noWrap
             component="a"
-            href={`/mycourses/${user.id}`}
+            href={`/#/mycourses/${user.id}`}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -164,7 +164,7 @@ function Navbar() {
             variant="h5"
             noWrap
             component="a"
-            href={`/mycourses/${user.id}`}
+            href={`/#/mycourses/${user.id}`}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },

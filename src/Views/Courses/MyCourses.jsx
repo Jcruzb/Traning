@@ -54,11 +54,11 @@ const MyCourses = () => {
                                     <TableCell >{myDedicationToHours(course.dedication)}</TableCell>
                                     <TableCell >
                                         <Box>
-                                        <Button sx={{margin:1}} variant="contained" color="primary" href={`/course/detail/${course.course.id}`}>
+                                        <Button sx={{margin:1}} variant="contained" color="primary" href={`/#/course/detail/${course.course.id}`}>
                                             <RemoveRedEyeIcon />
                                         </Button >
                                         {course.progress.courseProgressPercent === 100 ? (
-                                            <Button sx={{margin:1}} variant="contained" color="secondary" href={`/course/exam/${course.course.id}`}>
+                                            <Button sx={{margin:1}} variant="contained" color="secondary" href={`/#/course/exam/${course.course.id}`}>
                                                 <QuizIcon />
                                             </Button>
                                         ) : null}

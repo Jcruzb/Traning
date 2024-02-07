@@ -44,7 +44,7 @@ const Clients = () => {
             labelProp="name"
             onSearch={handleSearch}
           />
-          <Button href="/clients/new" variant="contained" color="primary" sx={{ marginY: 2 }}>Agregar</Button>
+          <Button href="/#/clients/new" variant="contained" color="primary" sx={{ marginY: 2 }}>Agregar</Button>
         </Box>
         <List
           rows={filteredClients?.length ? filteredClients : clients}
