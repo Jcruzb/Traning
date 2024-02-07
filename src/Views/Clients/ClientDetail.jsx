@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { getClientDetail } from "../../Services/ClientsService";
-import { useParams } from "react-router";
-import { Avatar, Box, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { deleteClient, getClientDetail } from "../../Services/ClientsService";
+import { useNavigate, useParams } from "react-router";
+import { Avatar, Box, Button, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import Paper from '@mui/material/Paper';
 
 const ClientDetail = () => {
     const { id } = useParams();
     const [client, setClient] = useState(null);
+    const navigate = useNavigate();
+
 
 
 
@@ -34,6 +36,18 @@ const ClientDetail = () => {
         })
         return studentsOfCompany.length
     }
+
+    const handleDeleteClient = () => {
+        deleteClient(id)
+            .then(() => {
+                console.log("Cliente eliminado");
+                navigate('/clients');
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log("Error al eliminar el cliente");
+            });
+        }
 
     if (!client) {
         return <h1>Cargando...</h1>
@@ -68,6 +82,11 @@ const ClientDetail = () => {
                             </Table>
                         </TableContainer>
                     </Box>
+                    {
+                        client.name !== "SinCeO2" ?
+                <Button  variant="contained" color="primary" sx={{ marginY: 2 }} onClick={handleDeleteClient}>Borrar cliente</Button>:
+                null
+                    }
                 </Card>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, margin: 2, justifyContent: 'space-around' }}>
