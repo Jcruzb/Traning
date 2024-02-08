@@ -166,7 +166,8 @@ const CoursesFormContent = () => {
     else {
 
         return (
-            <Box sx={{ margin: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
+            <Box sx={{ maxWidth:'80%', margin: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
                     <CourseHeader
                         title={course.name}
@@ -236,6 +237,7 @@ const CoursesFormContent = () => {
                         </Card>
                     </form>
                 </Box>
+            </Box>
             </Box>
         )
     }
