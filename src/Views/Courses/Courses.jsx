@@ -26,15 +26,17 @@ const Courses = () => {
 
     const handleDeleteCourse = (id) => {
 
-        deleteCourse(id)
-            .then(() => {
-                console.log("Curso eliminado");
-                setCourses(courses.filter((course) => course.id !== id));
-            })
-            .catch((err) => {
-                console.log(err);
-                console.log("Error al eliminar el curso");
-            });
+        console.log("Eliminar curso", id);
+
+        // deleteCourse(id)
+        //     .then(() => {
+        //         console.log("Curso eliminado");
+        //         setCourses(courses.filter((course) => course.id !== id));
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //         console.log("Error al eliminar el curso");
+        //     });
     };
 
     const coursesToRender = filterCourses.length ? filterCourses : courses;

@@ -167,7 +167,7 @@ const CoursesFormContent = () => {
 
         return (
             <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
-            <Box sx={{ maxWidth:'80%', margin: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <Box sx={{ width:{sm:'100%', md:'80%'}, margin: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
                     <CourseHeader
                         title={course.name}
