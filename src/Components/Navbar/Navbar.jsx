@@ -73,6 +73,9 @@ function Navbar() {
 
   const handleRouteClick = (page) => {
     const route = handleRoute(page).toLowerCase();
+    if (page === "Mis Cursos") {
+      return `/${route}/${user.id}`;
+    }
     return `/${route}`;
   };
 
