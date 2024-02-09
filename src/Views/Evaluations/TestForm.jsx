@@ -2,8 +2,7 @@ import { useParams } from "react-router";
 import { getCourseDetail } from "../../Services/CoursesService";
 import { useEffect, useState } from "react";
 import { Box, Button, Divider, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
-import Quiestion from "../../Components/Quiestion/Quiestion";
-
+import Quiestion from "../../Components/Quiestion/Quiestion";   
 
 
 const TestForm = () => {
@@ -17,15 +16,13 @@ const TestForm = () => {
         questions: [],
 
     })
-    const [questionState, setQuestionState] = useState({
-        question: "",
-        options: []
-    })
 
+    console.log(test);
 
     useEffect(() => {
         getCourseDetail(id)
             .then((data) => {
+                console.log(data);
                 setCourse(data);
             })
             .catch((error) => {
@@ -34,28 +31,20 @@ const TestForm = () => {
 
     }, [id]);
 
-
-
     const handleChange = (e, name) => {
         setTest({ ...test, [name]: e.target.value });
     }
 
     const addQuestion = () => {
-        setTest({ ...test, questions: [...test.questions, questionState] });
+        const newQuestion = {
+            question: "",
+            options: []
+        }
+        setTest({ ...test, questions: [...test.questions, newQuestion] });
     }
 
-    const handleChangeQuestions = (e, name, index) => {
-        console.log(index);
-        const newQuestions = [...test.questions];
-        newQuestions[index][name] = e.target.value;
-        setTest({ ...test, questions: newQuestions });
-    }
-    
 
-    console.log(test);
-
-
-
+    console.log(course);
 
     if (!course) {
         return <div>Loading...</div>;
@@ -84,16 +73,11 @@ const TestForm = () => {
                             </Select>
                         </Stack>
                         {test.questions.map((question, index) => (
-                            <Quiestion
-                             key={index}
-                             question={questionState}
-                             setQuestion={setQuestionState}
-                             onChange={(e) => handleChangeQuestions(e, 'question', index)}
-                             />
+                            <Quiestion key={index} />
                         ))
                         }
 
-                        <Button onClick={( e ) => addQuestion(e)} variant="contained" color="success" sx={{marginY:1}}>
+                        <Button onClick={addQuestion} variant="contained" color="success" sx={{marginY:1}}>
                             Agregar Pregunta
                         </Button>
 
