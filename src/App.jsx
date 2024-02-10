@@ -22,6 +22,7 @@ import UserDetail from './Views/Users/UserDetail'
 import Exam from './Views/Courses/Exam'
 import TestForm from './Views/Evaluations/TestForm'
 import NotFoundPage from './Views/NotFound/NotFound'
+import ExamForm from './Views/Evaluations/ExamForm'
 
 
 
@@ -66,6 +67,11 @@ function App() {
 
               {/* Test */}
               <Route path="/course/:id/testForm" element={<TestForm />} />
+
+              {/* Exam */}
+              <Route path="/course/:id/examForm/" element={<ExamForm />} />
+
+              {/* Users */}
 
               <Route path="/users" element={<Users />} />
               <Route path="/users/new" element={<UsersForm />} />

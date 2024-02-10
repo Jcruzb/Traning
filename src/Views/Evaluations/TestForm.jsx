@@ -34,7 +34,7 @@ const TestForm = () => {
 
     }, [id]);
 
-    console.log(titles)
+
 
     const handleChange = (e, name) => {
         setTest({ ...test, [name]: e.target.value });
@@ -48,15 +48,16 @@ const TestForm = () => {
         setTest({ ...test, questions: [...test.questions, newQuestion] });
     }
 
-    console.log(test);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const courseToUpdate = { ...course };
-        courseToUpdate.tests.push(test);
-        setCourse(courseToUpdate);
-
-        await updateCourse(id, course)
+        const updatedCourse = {
+            ...course,
+            tests: [...course.tests, test] 
+        };
+    
+        await updateCourse(id, updatedCourse) 
             .then(() => {
                 navigate(`/course/content/${id}`)
             })
@@ -64,6 +65,7 @@ const TestForm = () => {
                 console.log(error);
             });
     }
+    
 
 
     if (!course) {
@@ -71,49 +73,58 @@ const TestForm = () => {
     } else {
 
         return (
-            <Box sx={{ padding: 2 }}>
-                <Typography variant="h4">{course.name}</Typography>
-                <Typography variant="body">En esta sección agregará una Evaluación a un contenido específico del curso</Typography>
-                <Divider />
-                <Box sx={{ padding: 2 }}>
-                    <form action="submit">
-                        <Stack spacing={2}>
-                            <InputLabel id="content-label">Seleccionar contenido</InputLabel>
-                            <Select
-                                labelId="content-label"
-
-                                name="title"
-                                sx={{ maxWidth: '80%' }}
-                                onChange={(e) => handleChange(e, 'title')}
-                                value={test.title}
-                            >
-                                {titles?.map((title, index) => (
-                                    <MenuItem key={index} value={title}  >{title}</MenuItem>
-                                ))}
-                            </Select>
-                        </Stack>
-                        {test.questions.map((question, index) => (
-                            <Question
-                                key={index}
-                                question={question}
-                                setQuestion={(updatedQuestion) => {
-                                    const updatedQuestions = [...test.questions];
-                                    updatedQuestions[index] = updatedQuestion;
-                                    setTest({ ...test, questions: updatedQuestions });
-                                }}
-                                number={index + 1}
-                            />
-                        ))}
-                        <Button onClick={addQuestion} variant="contained" color="success" sx={{ marginY: 1 }}>
-                            Agregar Pregunta
-                        </Button>
-
-                    </form>
-                    <Button onClick={e => handleSubmit(e)} variant="contained" color="primary" sx={{ marginY: 1 }}>
-                        Guardar Test
+                titles.length === 0 
+                ? 
+                (<Box sx={{ padding: 2 }}>
+                    <Typography variant="h4">Todas las Secciones están siendo evaluadas</Typography>
+                    <Button onClick={() => navigate(`/course/content/${id}`)} variant="contained" color="primary" sx={{ marginY: 1 }}>
+                        Volver
                     </Button>
-                </Box>
-            </Box>
+                </Box> )
+                :
+                    (<Box sx={{ padding: 2 }}>
+                        <Typography variant="h4">{course.name}</Typography>
+                        <Typography variant="body">En esta sección agregará una Evaluación a un contenido específico del curso</Typography>
+                        <Divider />
+                        <Box sx={{ padding: 2 }}>
+                            <form action="submit">
+                                <Stack spacing={2}>
+                                    <InputLabel id="content-label">Seleccionar contenido</InputLabel>
+                                    <Select
+                                        labelId="content-label"
+
+                                        name="title"
+                                        sx={{ maxWidth: '80%' }}
+                                        onChange={(e) => handleChange(e, 'title')}
+                                        value={test.title}
+                                    >
+                                        {titles?.map((title, index) => (
+                                            <MenuItem key={index} value={title}  >{title}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </Stack>
+                                {test.questions.map((question, index) => (
+                                    <Question
+                                        key={index}
+                                        question={question}
+                                        setQuestion={(updatedQuestion) => {
+                                            const updatedQuestions = [...test.questions];
+                                            updatedQuestions[index] = updatedQuestion;
+                                            setTest({ ...test, questions: updatedQuestions });
+                                        }}
+                                        number={index + 1}
+                                    />
+                                ))}
+                                <Button onClick={addQuestion} variant="contained" color="success" sx={{ marginY: 1 }}>
+                                    Agregar Pregunta
+                                </Button>
+
+                            </form>
+                            <Button onClick={e => handleSubmit(e)} variant="contained" color="primary" sx={{ marginY: 1 }}>
+                                Guardar Test
+                            </Button>
+                        </Box>
+                    </Box>)
         )
     }
 }
