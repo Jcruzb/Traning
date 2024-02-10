@@ -1,10 +1,8 @@
-import { useParams } from "react-router";
-import { getCourseDetail } from "../../Services/CoursesService";
+import { useNavigate, useParams } from "react-router";
+import { getCourseDetail, updateCourse } from "../../Services/CoursesService";
 import { useEffect, useState } from "react";
 import { Box, Button, Divider, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
-import Quiestion from "../../Components/Quiestion/Quiestion";
-
-
+import Question from "../../Components/Question/Question";
 
 const TestForm = () => {
 
@@ -17,11 +15,7 @@ const TestForm = () => {
         questions: [],
 
     })
-    const [questionState, setQuestionState] = useState({
-        question: "",
-        options: []
-    })
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         getCourseDetail(id)
@@ -34,25 +28,36 @@ const TestForm = () => {
 
     }, [id]);
 
-
-
     const handleChange = (e, name) => {
         setTest({ ...test, [name]: e.target.value });
     }
 
     const addQuestion = () => {
-        setTest({ ...test, questions: [...test.questions, questionState] });
+        const newQuestion = {
+            question: "",
+            options: []
+        }
+        setTest({ ...test, questions: [...test.questions, newQuestion] });
     }
-
-    const handleChangeQuestions = (e, name, index) => {
-        console.log(index);
-        const newQuestions = [...test.questions];
-        newQuestions[index][name] = e.target.value;
-        setTest({ ...test, questions: newQuestions });
-    }
-    
 
     console.log(test);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const courseToUpdate = { ...course };
+        courseToUpdate.tests.push(test);
+        setCourse(courseToUpdate);
+
+        await updateCourse(id, course)
+            .then(() => {
+                navigate(`/course/content/${id}`)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+
+    }
 
 
 
@@ -84,20 +89,27 @@ const TestForm = () => {
                             </Select>
                         </Stack>
                         {test.questions.map((question, index) => (
-                            <Quiestion
-                             key={index}
-                             question={questionState}
-                             setQuestion={setQuestionState}
-                             onChange={(e) => handleChangeQuestions(e, 'question', index)}
-                             />
-                        ))
-                        }
+                            <Question
+                                key={index}
+                                question={question}
+                                setQuestion={(updatedQuestion) => {
+                                    const updatedQuestions = [...test.questions];
+                                    updatedQuestions[index] = updatedQuestion;
+                                    setTest({ ...test, questions: updatedQuestions });
+                                }}
+                                number={index + 1}
+                            />
+                        ))}
 
-                        <Button onClick={( e ) => addQuestion(e)} variant="contained" color="success" sx={{marginY:1}}>
+
+                        <Button onClick={addQuestion} variant="contained" color="success" sx={{ marginY: 1 }}>
                             Agregar Pregunta
                         </Button>
 
                     </form>
+                    <Button onClick={e => handleSubmit(e)} variant="contained" color="primary" sx={{ marginY: 1 }}>
+                        Guardar Test
+                    </Button>
                 </Box>
             </Box>
         )
