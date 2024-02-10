@@ -55,11 +55,7 @@ const TestForm = () => {
             .catch((error) => {
                 console.log(error);
             });
-
-
     }
-
-
 
 
     if (!course) {
@@ -100,8 +96,6 @@ const TestForm = () => {
                                 number={index + 1}
                             />
                         ))}
-
-
                         <Button onClick={addQuestion} variant="contained" color="success" sx={{ marginY: 1 }}>
                             Agregar Pregunta
                         </Button>

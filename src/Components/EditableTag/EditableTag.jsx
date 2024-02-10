@@ -22,7 +22,10 @@ const EditableTag = ({ typeOfTag, initialValue, onUpdate, name, index, editImage
   };
 
   const handleChange = (e) => {
-    setValue(e.target.value);
+    setValue(e.target.value)
+    if (onUpdate) {
+      onUpdate({ target: { value: e.target.value, name } }, index);
+    }
   };
 
   const handleTextFormatChange = (value) => {

@@ -198,7 +198,7 @@ const CoursesFormContent = () => {
                                     sx={{ marginBottom: 1 }}
                                     typeOfTag={"p"}
                                     initialValue={content.description ? content.description : ""}
-                                    handleChange={editTag}
+                                    onUpdate={editTag}
                                 />
 
                             </Box>
