@@ -10,6 +10,7 @@ const TestForm = () => {
 
     const [course, setCourse] = useState({
     });
+    const [titles, setTitles] = useState([]);
     const [test, setTest] = useState({
         title: "",
         questions: [],
@@ -20,6 +21,11 @@ const TestForm = () => {
     useEffect(() => {
         getCourseDetail(id)
             .then((data) => {
+                //just titles without test
+                const titlesOfTest = data.tests.map((test) => test.title);
+                const titlesOfContent = data.content.map((content) => content.title);
+                const titles = titlesOfContent.filter((title) => !titlesOfTest.includes(title));
+                setTitles(titles);
                 setCourse(data);
             })
             .catch((error) => {
@@ -27,6 +33,8 @@ const TestForm = () => {
             });
 
     }, [id]);
+
+    console.log(titles)
 
     const handleChange = (e, name) => {
         setTest({ ...test, [name]: e.target.value });
@@ -79,8 +87,8 @@ const TestForm = () => {
                                 onChange={(e) => handleChange(e, 'title')}
                                 value={test.title}
                             >
-                                {course.content?.map((content) => (
-                                    <MenuItem key={content._id} value={content.title}  >{content.title}</MenuItem>
+                                {titles?.map((title, index) => (
+                                    <MenuItem key={index} value={title}  >{title}</MenuItem>
                                 ))}
                             </Select>
                         </Stack>
