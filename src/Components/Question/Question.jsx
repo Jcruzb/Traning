@@ -2,18 +2,17 @@ import Switch from '@mui/material/Switch';
 import { Box, Button, Card, FormControlLabel, TextField } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const Question = ({question, setQuestion}) => {
+const Question = ({question, setQuestion, number}) => {
 
   const isCorrect = ['Respuesta Correcta', 'Respuesta Incorrecta'];
 
 
 
   const addOption = () => {
-    setQuestion({
-      ...question,
-      options: [...question.options, { option: '', isCorrect: false }]
-    });
-  };
+    const newOptions = { option: '', isCorrect: false };
+    setQuestion({ ...question, options: [...question.options, newOptions]});
+};
+
 
   const handleQuestionChange = (e) => {
     setQuestion({ ...question, question: e.target.value });
@@ -32,7 +31,6 @@ const Question = ({question, setQuestion}) => {
   }
 
   const deleteOption = (e, index) => {
-    console.log(index);
     const newOptions = [...question.options];
     newOptions.splice(index, 1);
     setQuestion({ ...question, options: newOptions });
@@ -40,15 +38,13 @@ const Question = ({question, setQuestion}) => {
     
 
 
- 
-
   return (
     <Card sx={{ padding: 2, margin: 2 }} orientation="horizontal">
       <Box>
         <TextField
           sx={{ marginTop: 2, minWidth: '50%', width: '100%' }}
           id="outlined-basic"
-          label="Pregunta"
+          label={`Pregunta ${number}`}
           onChange={(e) => handleQuestionChange(e)}
         />
       </Box>
@@ -57,7 +53,7 @@ const Question = ({question, setQuestion}) => {
           <TextField
             sx={{ marginTop: 2, minWidth: '50%', maxWidth: '80%' }}
             id="outlined-basic"
-            label="Opcion"
+            label={`Opcion ${index + 1}`}
             value={option.option}
             onChange={(e) => handleFieldChange(e, index)}
           />
