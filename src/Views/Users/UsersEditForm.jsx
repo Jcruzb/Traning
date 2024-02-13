@@ -14,9 +14,6 @@ const UsersEditForm = () => {
     company: "",
   });
 
-  console.log(loggedUser);
-
-
 
   const token = localStorage.getItem("token");
 
