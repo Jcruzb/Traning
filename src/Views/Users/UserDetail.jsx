@@ -150,9 +150,17 @@ const UserDetail = () => {
               </Table>
             </TableContainer>
           </Box>
-        <Button variant="contained" color="primary" onClick={handleDelete} >
-          Eliminar Usuario
-        </Button>
+          {user?.role === "Administrador SinCeO2" ? (
+            <Button variant="contained" color="primary" href="/#/users">
+            Volver
+            </Button>
+            ) : (
+              <Button variant="contained" color="primary" onClick={handleDelete} >
+              Eliminar Usuario
+            </Button>
+          )
+              }
+
         </Card>
         <Box
           sx={{

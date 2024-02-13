@@ -66,7 +66,7 @@ const Exam = () => {
         if (score > questions.length / 2) {
             return 'Aprobado';
         } else {
-            return 'Reprobado';
+            return 'Suspenso';
         }
     };
 
