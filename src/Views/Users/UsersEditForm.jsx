@@ -14,8 +14,9 @@ const UsersEditForm = () => {
     company: "",
   });
 
+  console.log(loggedUser);
 
-console.log(loggedUser)
+
 
   const token = localStorage.getItem("token");
 
@@ -65,20 +66,9 @@ console.log(loggedUser)
               value={user.username}
               onChange={handleInputChange}
             />
-            <TextField
-              name="email"
-              label={loggedUser.email}
-              variant="outlined"
-              value={user.email}
-              onChange={handleInputChange}
-            />
-            <TextField
-              name="password"
-              label={loggedUser.password ? "********" : "Contraseña"}
-              variant="outlined"
-              value={user.password}
-              onChange={handleInputChange}
-            />
+            <Typography variant="subtitle"><b>Correo:</b> {loggedUser.email}</Typography>
+            <Typography variant="subtitle"><b>Rol:</b> {loggedUser.role}</Typography>
+            <Typography variant="subtitle"><b>Compañia:</b> {loggedUser.company.name}</Typography>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row", gap: "20px" }}>
           <Button variant="contained" onClick={handleSubmit}>
