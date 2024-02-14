@@ -165,7 +165,22 @@ const CoursesFormContent = () => {
             });
     }
 
-
+    const hanndleAddContent = (e, index) => {
+        e.preventDefault();
+        const newContent = [...course.content];
+        newContent.splice(index, 0, { title: "Agregar título", description: "Agregar contenido", image: "" });
+        setCourse({
+            ...course,
+            content: newContent
+        })
+        updateCourse(id, { content: newContent })
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
 
     if (!course.mainImage) {
@@ -188,7 +203,7 @@ const CoursesFormContent = () => {
 
                         {course.content?.map((content, index) => (
                             <Card key={content._id} sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center', margin: 2, padding: 1, minWidth: '80vh' }}>
-
+                                <Button variant="contained" color="primary" sx={{ marginY: 2 }} onClick={(e) => hanndleAddContent(e, index)}>+</Button>
                                 <Box>
                                     <EditableTag
                                         index={index}
