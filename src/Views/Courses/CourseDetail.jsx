@@ -6,6 +6,7 @@ import ViewOfContent from "./ViewOfContent";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import { updateDedication } from "../../Services/UsersService";
 import TextFormatToShowInCourseContent from "../../Components/TextFormat/TextFormatToShowInCourseContent";
+import { set } from "date-fns";
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -16,16 +17,15 @@ const CourseDetail = () => {
     // Primer useEffect para obtener detalles del curso
     useEffect(() => {
         const fetchCourseDetail = async () => {
-            try {
-                const data = await getCourseDetail(id);
-                setCourse(data);
-            } catch (error) {
-                console.log(error);
+            if (user){
+                setCourse(user.courses.find((course) => course.course.id === id).course);
             }
         };
 
         fetchCourseDetail();
     }, [id]);
+
+
     useEffect(() => {
         let timer;
 
