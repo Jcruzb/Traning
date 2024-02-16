@@ -22,16 +22,19 @@ const Exam = () => {
 
     const { user } = useAuthContext();
 
+
     useEffect(() => {
-        getCourseDetail(id)
-            .then((response) => {
-                setCourse(response);
-                setExam(response.Exam);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        const fetchCourseDetail = async () => {
+            if (user) {
+                setCourse(user.courses.find((course) => course.course.id === id).course);
+                setExam(user.courses.find((course) => course.course.id === id).course.Exam);
+            }
+        };
+
+        fetchCourseDetail();
     }, [id]);
+
+    console.log(course)
 
     const handleAnswer = (e, option) => {
         const { name, value } = e.target;
@@ -48,8 +51,6 @@ const Exam = () => {
 
         setAnswers(newAnswers);
     };
-
-    console.log(answers);
 
     const prepareExamResults = (questions, selectedAnswers) => {
         const score = answers.filter(answer => answer.isCorrect).length;
@@ -179,7 +180,7 @@ const Exam = () => {
                         </Typography>
                     </Box>
                     <Divider />
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', width:'100%'}}>
                         <Box
                             sx={{
                                 display: "flex",
