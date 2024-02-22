@@ -59,7 +59,11 @@ const Users = () => {
                         labelProp="username"
                         onSearch={handleSearch}
                     />
+                    <Box sx={{display:'flex', gap:1}}>
+                    <Button href="/#/users/bulkregister" variant="contained" color="primary" sx={{ marginY: 2 }}>Creación Masiva</Button>
                     <Button href="/#/users/new" variant="contained" color="primary" sx={{ marginY: 2 }}>Agregar</Button>
+                    </Box>
+
                 </Box>
                 <Box sx={{ marginX: 10 }}>
                     <List

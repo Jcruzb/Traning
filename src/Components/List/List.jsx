@@ -116,8 +116,8 @@ export default function List({ rows, columns, headers, onRowClick }) {
                         {(rowsPerPage > 0
                             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : rows
-                        ).map((row) => (
-                            <TableRow key={row.id} hover onClick={() => onRowClick(row.id)}>
+                        ).map((row, index) => (
+                            <TableRow key={row.id || index} hover onClick={() => onRowClick(row.id)}>
                                 {columns.map((column, index) => (
                                     <TableCell
                                         key={index}

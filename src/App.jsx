@@ -23,6 +23,7 @@ import Exam from './Views/Courses/Exam'
 import TestForm from './Views/Evaluations/TestForm'
 import NotFoundPage from './Views/NotFound/NotFound'
 import ExamForm from './Views/Evaluations/ExamForm'
+import BulkRegister from './Components/BulkRegister/BulkRegister'
 
 
 
@@ -78,6 +79,7 @@ function App() {
               <Route path="/users/profile/:id" element={<Profile />} />
               <Route path="/users/edit/:id" element={<UsersEditForm />} />
               <Route path="/users/detail/:id" element={<UserDetail />} />
+              <Route path="/users/bulkregister" element={<BulkRegister />} />
             </Route>
             <Route path="/login" element={<Login />} />
 

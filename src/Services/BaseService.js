@@ -4,17 +4,9 @@ import axios from 'axios';
 import { getAccessToken, logout } from '../Stores/AccessTokenStore';
 
 const createHttp = (useAccessToken = false) => {
-  console.log(import.meta.env.VITE_API_URL)
   const http = axios.create({
     baseURL:import.meta.env.VITE_API_URL || "http://localhost:3000",
   });
-
-
-  // const http = axios.create({
-  //   baseURL:import.meta.env.VITE_API_URL || "http://localhost:3000",
-  // });
-
-
 
   if (useAccessToken) {
     http.interceptors.request.use((config) => {
