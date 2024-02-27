@@ -1,0 +1,44 @@
+.certificate-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 10px;
+  }
+  
+  .certificate {
+    width: 794px; /* Ancho para tamaño A4 */
+    height: 1123px; /* Alto para tamaño A4 */
+    border: 2px solid #000;
+    padding: 30px;
+  }
+  
+  .certificate-header {
+    text-align: center;
+  }
+  
+  .certificate-content {
+    margin-top: 50px;
+  }
+  
+  .certificate-footer {
+    margin-top: 100px;
+    text-align: center;
+  }
+  
+  h1, h2 {
+    margin: 0;
+  }
+  
+  h1 {
+    font-size: 36px;
+  }
+  
+  h2 {
+    font-size: 28px;
+  }
+  
+  p {
+    font-size: 18px;
+  }
+  

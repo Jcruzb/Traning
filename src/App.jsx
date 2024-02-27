@@ -24,6 +24,7 @@ import TestForm from './Views/Evaluations/TestForm'
 import NotFoundPage from './Views/NotFound/NotFound'
 import ExamForm from './Views/Evaluations/ExamForm'
 import BulkRegister from './Components/BulkRegister/BulkRegister'
+import Certificate from './Views/Certificate/Certificate'
 
 
 
@@ -65,6 +66,8 @@ function App() {
               <Route path="/course/content/:id" element={<CoursesFormContent />} />
               <Route path="/course/asign/companies/:id" element={<CoursesToCompanies />} />
               <Route path="/course/exam/:id" element={<Exam />} />
+              <Route path="/course/certificate/:id" element={<Certificate />} />
+
 
               {/* Test */}
               <Route path="/course/:id/testForm" element={<TestForm />} />

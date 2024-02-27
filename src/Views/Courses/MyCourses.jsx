@@ -58,9 +58,14 @@ const MyCourses = () => {
                                             <RemoveRedEyeIcon />
                                         </Button >
                                         {course.progress.courseProgressPercent === 100 ? (
-                                            <Button sx={{margin:1}} variant="contained" color="secondary" href={`/#/course/exam/${course.course.id}`}>
+                                            <Box>
+                                                                                            <Button sx={{margin:1}} variant="contained" color="secondary" href={`/#/course/exam/${course.course.id}`}>
                                                 <QuizIcon />
                                             </Button>
+                                            <Button sx={{margin:1}} variant="contained" color="secondary" href={`/#/course/certificate/${course.course.id}`}>
+                                                Certificado
+                                            </Button>
+                                            </Box>
                                         ) : null}
                                         </Box>
                                     </TableCell>
