@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getCourseDetail } from "../../Services/CoursesService";
 import {
     Avatar,
     Box,
@@ -140,7 +139,7 @@ const Exam = () => {
                     <Typography variant='h5'>Tu resultado es: <b>{user.courses.find(course => course.course.id === id).examResults.result}</b></Typography>
                     <Typography variant='h5'>Tu puntuación es: <b>{user.courses.find(course => course.course.id === id).examResults.score}</b></Typography>
                     {
-                        user.courses.find(course => course.course.id === id).examResults.result === 'Reprobado' ? (
+                        user.courses.find(course => course.course.id === id).examResults.result === 'Suspenso' ? (
                             <Box>
                                 <Typography variant='h5'>Debes volver a realizar el examen</Typography>
                                 <Button

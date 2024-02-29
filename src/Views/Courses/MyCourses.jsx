@@ -27,6 +27,8 @@ const MyCourses = () => {
         return `${hours}h ${minutes}m ${seconds}s`
     }
 
+    console.log(user)
+
     return (
         <Box className="MyCourses" sx={{ marginX: 2 }}>
             <Typography variant="h4" >Mis Cursos</Typography >
@@ -62,23 +64,27 @@ const MyCourses = () => {
                                                 <Box>
                                                     <Button sx={{ margin: 1 }} variant="contained" color="secondary" href={`/#/course/exam/${course.course.id}`}>
                                                         <QuizIcon />
-                                                    </Button>
-                                                    <Box>
-                                                        <Button sx={{ margin: 1 }} variant="contained" color="secondary">
-                                                            <PDFDownloadLink
-                                                                document={
-                                                                    <Certificate user={user} course={course.course} />
 
-                                                                }
-                                                                fileName="certificado.pdf"
-                                                            >
-                                                                {({ blob, url, loading, error }) =>
-                                                                    loading ? <DownloadingIcon/> : <DownloadIcon/>
-                                                                }
-                                                            </PDFDownloadLink>
-                                                        </Button>
-                                                    </Box>
+                                                    </Button>
+                                                    {course.examResults.result === 'Aprobado' ? 
+                                                        (<Box>
+                                                            <Button sx={{ margin: 1 }} variant="contained" color="secondary">
+                                                                <PDFDownloadLink
+                                                                    document={
+                                                                        <Certificate user={user} course={course.course} />
+
+                                                                    }
+                                                                    fileName="certificado.pdf"
+                                                                >
+                                                                    {({ blob, url, loading, error }) =>
+                                                                        loading ? <DownloadingIcon /> : <DownloadIcon />
+                                                                    }
+                                                                </PDFDownloadLink>
+                                                            </Button>
+                                                        </Box>)
+                                                    : null}
                                                 </Box>
+
                                             ) : null}
                                         </Box>
                                     </TableCell>
