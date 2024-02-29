@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { Avatar, Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import QuizIcon from '@mui/icons-material/Quiz';
-
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import Certificate from "../Certificate/Certificate";
+import DownloadIcon from '@mui/icons-material/Download';
+import DownloadingIcon from '@mui/icons-material/Downloading';
 
 const MyCourses = () => {
-
 
     const { user } = useAuthContext()
 
@@ -23,8 +26,6 @@ const MyCourses = () => {
         const seconds = dedication - (hours * 3600) - (minutes * 60)
         return `${hours}h ${minutes}m ${seconds}s`
     }
-
-
 
     return (
         <Box className="MyCourses" sx={{ marginX: 2 }}>
@@ -54,22 +55,33 @@ const MyCourses = () => {
                                     <TableCell >{myDedicationToHours(course.dedication)}</TableCell>
                                     <TableCell >
                                         <Box>
-                                        <Button sx={{margin:1}} variant="contained" color="primary" href={`/#/course/detail/${course.course.id}`}>
-                                            <RemoveRedEyeIcon />
-                                        </Button >
-                                        {course.progress.courseProgressPercent === 100 ? (
-                                            <Box>
-                                                                                            <Button sx={{margin:1}} variant="contained" color="secondary" href={`/#/course/exam/${course.course.id}`}>
-                                                <QuizIcon />
-                                            </Button>
-                                            <Button sx={{margin:1}} variant="contained" color="secondary" href={`/#/course/certificate/${course.course.id}`}>
-                                                Certificado
-                                            </Button>
-                                            </Box>
-                                        ) : null}
+                                            <Button sx={{ margin: 1 }} variant="contained" color="primary" href={`/#/course/detail/${course.course.id}`}>
+                                                <RemoveRedEyeIcon />
+                                            </Button >
+                                            {course.progress.courseProgressPercent === 100 ? (
+                                                <Box>
+                                                    <Button sx={{ margin: 1 }} variant="contained" color="secondary" href={`/#/course/exam/${course.course.id}`}>
+                                                        <QuizIcon />
+                                                    </Button>
+                                                    <Box>
+                                                        <Button sx={{ margin: 1 }} variant="contained" color="secondary">
+                                                            <PDFDownloadLink
+                                                                document={
+                                                                    <Certificate user={user} course={course.course} />
+
+                                                                }
+                                                                fileName="certificado.pdf"
+                                                            >
+                                                                {({ blob, url, loading, error }) =>
+                                                                    loading ? <DownloadingIcon/> : <DownloadIcon/>
+                                                                }
+                                                            </PDFDownloadLink>
+                                                        </Button>
+                                                    </Box>
+                                                </Box>
+                                            ) : null}
                                         </Box>
                                     </TableCell>
-
                                 </TableRow>
                             ))}
                         </TableBody>
