@@ -22,6 +22,7 @@ import { useCompanyContext } from "../../Contexts/CompanyContext";
 const UserDetail = () => {
   const [user, setUser] = useState({});
   const [companyCourses, setCompanyCourses] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [companyName, setCompanyName] = useState("");
   const [userCourses, setUserCourses] = useState([]);
   const [currentStudent, setCurrentStudent] = useState([]);
@@ -85,7 +86,7 @@ const UserDetail = () => {
 
   const handleDelete = () => {
     deleteUser(id)
-        .then((res) => {
+        .then(() => {
             navigate("/users");
         })
         .catch((err) => console.log(err));
