@@ -2,20 +2,22 @@ import React, { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import List from "../List/List";
 import DownloadTemplate from "../../ExcelTemplate/ExcelTemplate";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import UploadFile from "../UploadFile/UploadFile";
 import { useCompanyContext } from "../../Contexts/CompanyContext";
 import { registerUser } from "../../Services/UsersService";
 import { useNavigate } from "react-router";
-import { fi } from "date-fns/locale";
+const ROLES = ["Administrador SinCeO2", "Administrador", "Usuario"];
 
 const ExcelImporter = () => {
   const [excelData, setExcelData] = useState(null);
-  const [usersToSave, setUsersToSave] = useState([]); 
+  const [usersToSave, setUsersToSave] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [time, setTime] = useState(0);
   //company del contexto
   const { company } = useCompanyContext();
 
-  const { navigate } = useNavigate();
+  const  navigate  = useNavigate();
 
   const handleFileUpload = (file) => {
     setExcelData(null);
@@ -44,11 +46,20 @@ const ExcelImporter = () => {
   useEffect(() => {
     if (excelData && excelData.rows) {
       //quitar los users con email repetido
-      const uniqueUsers = excelData.rows.filter((user, index, self) => index === self.findIndex((t) => (t.email === user.email)));
+      const uniqueUsers = excelData.rows.filter(
+        (user, index, self) =>
+          index === self.findIndex((t) => t.email === user.email)
+      );
       //quitar los usuarios que esten en company.users
       const usersInCompany = company.users.map((user) => user.email);
-      const uniqueUsersInCompany = uniqueUsers.filter((user) => !usersInCompany.includes(user.email));
-      const users = uniqueUsersInCompany.map((user) => {
+      const uniqueUsersInCompany = uniqueUsers.filter(
+        (user) => !usersInCompany.includes(user.email)
+      );
+      //quitar los que tienen username en blanco o el rol no está en ROLES
+      const usersWithUsername = uniqueUsersInCompany.filter(
+        (user) => user.username && ROLES.includes(user.role)
+      );
+      const users = usersWithUsername.map((user) => {
         return {
           username: user.username,
           email: user.email,
@@ -62,46 +73,75 @@ const ExcelImporter = () => {
   }, [excelData, company]);
 
   const handleUsersSubmit = async () => {
-    console.log('click');
+    console.log("click");
     try {
       for (const user of usersToSave) {
         console.log(user);
         await registerUser(user);
+        setTime((prev) => prev + 1);
+        setLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 300));
       }
-      alert("Usuarios registrados correctamente");
-      navigate("/#/users");
+      setLoading(false);
+      navigate("/users");
+      alert( "Usuarios registrados correctamente.");
     } catch (error) {
       console.error(error);
     } finally {
       setExcelData(null);
     }
-
   };
-  
-  
 
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          height: "100vh",
+        }}
+      >
+        <Typography variant="h3">Registrando usuarios...</Typography>
+        <Typography variant="h4">{time} usuarios registrados</Typography>
+        <Typography variant="h4">Por favor no recargue la pantalla</Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box>
-        <Box sx={{display:'flex', justifyContent:'center', alignItems:'center', gap:1, padding:1}}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 1,
+          padding: 1,
+        }}
+      >
         <DownloadTemplate />
-      <UploadFile onFileUpload={handleFileUpload} />
+        <UploadFile onFileUpload={handleFileUpload} />
+      </Box>
+      {excelData && excelData.rows && (
+        <Box>
+          <h3>Excel Data:</h3>
+          <List
+            headers={excelData.headers}
+            columns={["username", "email", "password", "role"]}
+            rows={excelData.rows}
+            onRowClick={() => {}}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleUsersSubmit}
+          >
+            Guardar
+          </Button>
         </Box>
-      {excelData &&
-        excelData.rows && ( 
-          <Box>
-            <h3>Excel Data:</h3>
-            <List
-              headers={excelData.headers} 
-              columns={["username", "email", "password", "role"]} 
-              rows={excelData.rows} 
-              onRowClick={() => {}} 
-            />
-            <Button variant="contained" color="primary" onClick={handleUsersSubmit}>
-              Guardar
-            </Button>
-          </Box>
-        )}
+      )}
     </Box>
   );
 };
