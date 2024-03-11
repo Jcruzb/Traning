@@ -7,9 +7,12 @@ export const getCurrentUser = () => http.get('/users/me');
 
 export const getUsersList = () => http.get('/users');
 
+export const getUsersData = () => http.get('/users/data');
+
 export const getUserDetail = (id) => http.get(`/users/${id}`);
 
-export const deleteUser = (id) => http.delete(`/users/${id}`);
+
+export const deleteUser = (id) => http.delete(`/users/users/${id}`);
 
 export const updateUser = (id, user) => http.put(`/users/${id}`, user);
 
