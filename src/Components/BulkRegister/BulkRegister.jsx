@@ -7,6 +7,8 @@ import UploadFile from "../UploadFile/UploadFile";
 import { useCompanyContext } from "../../Contexts/CompanyContext";
 import { registerUser } from "../../Services/UsersService";
 import { useNavigate } from "react-router";
+import { getClientsIds } from "../../Services/ClientsService";
+import { set } from "date-fns";
 const ROLES = ["Administrador SinCeO2", "Administrador", "Usuario"];
 
 const ExcelImporter = () => {
@@ -14,10 +16,21 @@ const ExcelImporter = () => {
   const [usersToSave, setUsersToSave] = useState([]);
   const [loading, setLoading] = useState(false);
   const [time, setTime] = useState(0);
-  //company del contexto
+  const [companies, setCompanies] = useState([]);
+  
   const { company } = useCompanyContext();
 
   const  navigate  = useNavigate();
+
+
+  useEffect(() => {
+    getClientsIds()
+      .then((res) => {
+        setCompanies(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
 
   const handleFileUpload = (file) => {
     setExcelData(null);
@@ -36,6 +49,7 @@ const ExcelImporter = () => {
         email: row[1],
         password: row[2],
         role: row[3],
+        company: row[4],
       }));
 
       setExcelData({ headers, rows });
@@ -60,22 +74,39 @@ const ExcelImporter = () => {
         (user) => user.username && ROLES.includes(user.role)
       );
       const users = usersWithUsername.map((user) => {
+        if (company.name === "SinCeO2") {
         return {
           username: user.username,
           email: user.email,
           password: user.password,
           role: user.role,
-          company: company.id,
+          company: user.company,
         };
+      }else {
+        return {
+          username: user.username,
+          email: user.email,
+          password: user.password,
+          role: user.role,
+        };
+      }
       });
       setUsersToSave(users);
     }
   }, [excelData, company]);
 
+
+
+
   const handleUsersSubmit = async () => {
-    console.log("click");
+
     try {
       for (const user of usersToSave) {
+        //changing the company name to the company id
+        if (company.name === "SinCeO2") {
+          const companyId = companies.find((c) => c.name === user.company);
+          user.company = companyId.id;
+        }
         console.log(user);
         await registerUser(user);
         setTime((prev) => prev + 1);
@@ -129,7 +160,11 @@ const ExcelImporter = () => {
           <h3>Excel Data:</h3>
           <List
             headers={excelData.headers}
-            columns={["username", "email", "password", "role"]}
+            columns={
+              company.name === "SinCeO2" ?
+              ["username", "email", "password", "role", "company"] :
+              ["username", "email", "password", "role"]
+            }
             rows={excelData.rows}
             onRowClick={() => {}}
           />
